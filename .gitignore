@@ -1,2 +1,7 @@
+__pycache__
+.pyc
+venv
+.png
+.venv379
 **/logs
 **/models

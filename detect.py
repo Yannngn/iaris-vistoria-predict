@@ -8,14 +8,16 @@ from utils import log_detection
 
 def predict(model, images: Union[str, List[str]], params: dict): 
     def single_prediction(img, results_list):
-        transform = torchvision.transforms.ToTensor()
-        tens = transform(Image.open(img))
+        transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor(), 
+                                                    torchvision.transforms.Resize((320, 320))])
+        
+        tens = transform(Image.open(img).convert('RGB'))
         tens = tens.unsqueeze(0)
 
         with torch.no_grad():
             prediction = model(tens)
-
-            return log_detection(img, prediction[0], results_list)
+            #print(prediction[0])
+            return log_detection(img, prediction[0], results_list, params)
 
     assert isinstance(images, str) or isinstance(images, list), TypeError(f'Input should be str or list of str; it was {type(images)}')
 

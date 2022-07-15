@@ -10,6 +10,9 @@ from utils import get_model_instance_detection, get_model_instance_classificatio
 
 ##      classification only
 ###         uniques
+NUM_CLASSES = 2
+MIN_SCORE = .5
+DEVICE = 'gpu'
 
 class Predictor(object):
     def __init__(self) -> None:
@@ -93,8 +96,9 @@ class ClassifyFarol(Classifier):
 class DetectEmblema(Detector):
     def __init__(self) -> None:
         self.params = {"model_class": "emblema",
-                       "num_class": 2,
-                       "device": "gpu"}
+                       "num_class": NUM_CLASSES,
+                       "device": DEVICE,
+                       "min_score": MIN_SCORE}
         self.results = []
         self.model, self.transform = self.get_model()
         pass
@@ -102,8 +106,9 @@ class DetectEmblema(Detector):
 class DetectFarol(Detector):
     def __init__(self) -> None:
         self.params = {"model_class": "farol",
-                       "num_class": 2,
-                       "device": "gpu"}
+                       "num_class": NUM_CLASSES,
+                       "device": DEVICE,
+                       "min_score": MIN_SCORE}
         self.results = []
         self.model, self.transform = self.get_model()
         pass
@@ -111,8 +116,9 @@ class DetectFarol(Detector):
 class DetectRoda(Detector):
     def __init__(self) -> None:
         self.params = {"model_class": "roda",
-                       "num_class": 2,
-                       "device": "gpu"}
+                       "num_class": NUM_CLASSES,
+                       "device": DEVICE,
+                       "min_score": MIN_SCORE}
         self.results = []
         self.model, self.transform = self.get_model()
         pass
@@ -120,17 +126,19 @@ class DetectRoda(Detector):
 class DetectMilha(Detector):
     def __init__(self) -> None:
         self.params = {"model_class": "milha",
-                       "num_class": 2,
-                       "device": "gpu"}
+                       "num_class": NUM_CLASSES,
+                       "device": DEVICE,
+                       "min_score": MIN_SCORE}
         self.results = []
         self.model, self.transform = self.get_model()
         pass
     
-class DetectRetrovisorTras(Detector):
+class DetectRetrovisor(Detector):
     def __init__(self) -> None:
         self.params = {"model_class": "retrovisor_tras",
-                       "num_class": 2,
-                       "device": "gpu"}
+                       "num_class": NUM_CLASSES,
+                       "device": DEVICE,
+                       "min_score": MIN_SCORE}
         self.results = []
         self.model, self.transform = self.get_model()
         pass
@@ -138,17 +146,9 @@ class DetectRetrovisorTras(Detector):
 class DetectLampadaTras(Detector):
     def __init__(self) -> None:
         self.params = {"model_class": "lampada_tras",
-                       "num_class": 2,
-                       "device": "gpu"}
-        self.results = []
-        self.model, self.transform = self.get_model()
-        pass
-
-class DetectLampadaTras(Detector):
-    def __init__(self) -> None:
-        self.params = {"model_class": "roda_tras",
-                       "num_class": 2,
-                       "device": "gpu"}
+                       "num_class": NUM_CLASSES,
+                       "device": DEVICE,
+                       "min_score": MIN_SCORE}
         self.results = []
         self.model, self.transform = self.get_model()
         pass
