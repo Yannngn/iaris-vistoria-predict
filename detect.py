@@ -26,7 +26,7 @@ def predict(model, images: Union[str, List[str]], params: dict):
     else: 
         torch.device('cpu')
 
-    model.load_state_dict(torch.load(f'models/model_{params["model_class"]}.pickle', map_location = device))
+    model.load_state_dict(torch.load(params['model_path'], map_location = device))
     model.eval()
 
     results = []

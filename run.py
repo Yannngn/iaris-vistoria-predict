@@ -14,7 +14,7 @@ def main(hparams):
     predict.call(images)
     predict.print_results()
     predict.save_results()
-    
+
 class Args:  
     @staticmethod
     def add_args(parent_parser: ArgumentParser) -> None:
@@ -22,6 +22,7 @@ class Args:
 
         parser.add_argument('--in_path', '-i', type=str, help="path of images")
         parser.add_argument('--out_path', '-o', type=str, help="path of output for the masks")
+        parser.add_argument('--model_path', '-o', type=str, help="path of the model weights")
         
         return parser
  

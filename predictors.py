@@ -13,6 +13,7 @@ from utils import get_model_instance_detection, get_model_instance_classificatio
 NUM_CLASSES = 2
 MIN_SCORE = .5
 DEVICE = 'gpu'
+COUNT = 0
 
 class Predictor(object):
     def __init__(self) -> None:
@@ -98,7 +99,8 @@ class DetectEmblema(Detector):
         self.params = {"model_class": "emblema",
                        "num_class": NUM_CLASSES,
                        "device": DEVICE,
-                       "min_score": MIN_SCORE}
+                       "min_score": MIN_SCORE,
+                       "count": COUNT}
         self.results = []
         self.model, self.transform = self.get_model()
         pass
@@ -108,7 +110,8 @@ class DetectFarol(Detector):
         self.params = {"model_class": "farol",
                        "num_class": NUM_CLASSES,
                        "device": DEVICE,
-                       "min_score": MIN_SCORE}
+                       "min_score": MIN_SCORE,
+                       "count": COUNT}
         self.results = []
         self.model, self.transform = self.get_model()
         pass
@@ -118,7 +121,8 @@ class DetectRoda(Detector):
         self.params = {"model_class": "roda",
                        "num_class": NUM_CLASSES,
                        "device": DEVICE,
-                       "min_score": MIN_SCORE}
+                       "min_score": MIN_SCORE,
+                       "count": COUNT}
         self.results = []
         self.model, self.transform = self.get_model()
         pass
@@ -128,7 +132,8 @@ class DetectMilha(Detector):
         self.params = {"model_class": "milha",
                        "num_class": NUM_CLASSES,
                        "device": DEVICE,
-                       "min_score": MIN_SCORE}
+                       "min_score": MIN_SCORE,
+                       "count": COUNT}
         self.results = []
         self.model, self.transform = self.get_model()
         pass
@@ -138,7 +143,8 @@ class DetectRetrovisor(Detector):
         self.params = {"model_class": "retrovisor_tras",
                        "num_class": NUM_CLASSES,
                        "device": DEVICE,
-                       "min_score": MIN_SCORE}
+                       "min_score": MIN_SCORE,
+                       "count": COUNT}
         self.results = []
         self.model, self.transform = self.get_model()
         pass
@@ -148,7 +154,8 @@ class DetectLampadaTras(Detector):
         self.params = {"model_class": "lampada_tras",
                        "num_class": NUM_CLASSES,
                        "device": DEVICE,
-                       "min_score": MIN_SCORE}
+                       "min_score": MIN_SCORE,
+                       "count": COUNT}
         self.results = []
         self.model, self.transform = self.get_model()
         pass

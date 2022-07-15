@@ -12,10 +12,8 @@ def log_detection(path, pred, results_list, params):
     result['image'] = path
     result['scores'] = pred['scores'].detach().numpy().tolist()
     result['boxes'] = pred['boxes'].detach().numpy().tolist()
-    pred['masks'][pred['masks'] > params['min_score']] = 1
-    pred['masks'] = pred['masks'].type(torch.uint8)
-    
-    result['masks'] = pred['masks'].detach().numpy().tolist()
+   
+    #result['masks'] = pred['masks'].detach().numpy().tolist()
     
     results_list.append(result)
     
@@ -54,21 +52,27 @@ def get_model_instance_classification():
         
     return torchvision.models.alexnet(pretrained=True), transform_val
 
+def save_image(prediction, params):
+    if len(prediction['scores']) == 0:
+        prediction['scores'] = [.0]
+    
+    prediction['masks'][prediction['masks'] > params['min_score']] = 1
+    prediction['masks'] = prediction['masks'].type(torch.uint8)
+    
+    count = 0
+    for j, score in enumerate(prediction['scores']):
+        if score >= params['min_score']:
+            mask = torch.from_numpy(np.array(prediction['masks'][j])).type(torch.float32)
+            torchvision.utils.save_image(mask, f'{params["out_path"]}/CAR{str(params["count"]).zfill(5)}_{params["model_class"]}_{count}.png')
+            count += 1
+
+    params["count"] += 1
+    
 def save_log(results, params):
     ### Metodo de salvar os resultados
     now = datetime.now().strftime("%m%d%Y-%H%M%S")
     log_file = f'logs/log_results_{params["model_class"]}_{now}.json'
-    for i, result in enumerate(results):       
-        
-        if len(result['scores']) == 0:
-            result['scores'] = [.0]
-        
-        count = 0
-        for j, score in enumerate(result['scores']):
-            if score >= params['min_score']:
-                mask = torch.from_numpy(np.array(result['masks'][j])).type(torch.float32)
-                torchvision.utils.save_image(mask, f'{params["out_path"]}/CAR{str(i).zfill(5)}_{params["model_class"]}_{count}.png')
-                count += 1
+
                
     with open(log_file, 'w') as f:
         json.dump(results, f, indent=4)
