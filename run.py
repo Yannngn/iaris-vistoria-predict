@@ -4,7 +4,7 @@ from argparse import ArgumentParser
 
 from predictors import *
 
-def main(images, hparams):
+def main(hparams):
     # match hparams.model_class:
     #     case 'farol':
     #         predict = DetectFarol()
