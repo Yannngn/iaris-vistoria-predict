@@ -1,16 +1,42 @@
-import glob2
+import pandas as pd
 
 from argparse import ArgumentParser
 
 from predictors import *
 
-def main(hparams):
-    images = glob2.glob(hparams.in_path+'*')
+def main(images, hparams):
+    # match hparams.model_class:
+    #     case 'farol':
+    #         predict = DetectFarol()
+    #     case 'lampada_tras':
+    #         predict = DetectLampadaTras()
+    #     case 'parabrisa':
+    #         predict = DetectParabrisa()
+    #     case 'roda':
+    #         predict = DetectRoda()
+    #     case _:
+    #         raise('valor inválido para --model_class')
+ 
+    if hparams.model_class == 'farol':
+        predict = DetectFarol()
+    elif hparams.model_class == 'lampada_tras':
+        predict = DetectLampadaTras()
+    elif hparams.model_class == 'parabrisa':
+            predict = DetectParabrisa()
+    elif hparams.model_class == 'roda':
+        predict = DetectRoda()
+    else:
+        raise('valor inválido para --model_class') 
     
-    predict = DetectMilha()
     #predict = ClassifyModelo()
+    
     predict.params['in_path'] = hparams.in_path
     predict.params['out_path'] = hparams.out_path
+    predict.params['model_path'] = hparams.model_path
+
+    df = pd.read_csv(hparams.in_path)
+    images = df.ref_image.tolist()
+    
     predict.call(images)
     predict.print_results()
     predict.save_results()
@@ -22,7 +48,8 @@ class Args:
 
         parser.add_argument('--in_path', '-i', type=str, help="path of images")
         parser.add_argument('--out_path', '-o', type=str, help="path of output for the masks")
-        parser.add_argument('--model_path', '-o', type=str, help="path of the model weights")
+        parser.add_argument('--model_path', '-m', type=str, help="path of the model weights")
+        parser.add_argument('--model_class', '-c', type=str, help="model name ['farol', 'roda', 'lampada_tras', 'parabrisa']")
         
         return parser
  

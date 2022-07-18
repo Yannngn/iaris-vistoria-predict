@@ -51,23 +51,7 @@ def get_model_instance_classification():
          ])        
         
     return torchvision.models.alexnet(pretrained=True), transform_val
-
-def save_image(prediction, params):
-    if len(prediction['scores']) == 0:
-        prediction['scores'] = [.0]
-    
-    prediction['masks'][prediction['masks'] > params['min_score']] = 1
-    prediction['masks'] = prediction['masks'].type(torch.uint8)
-    
-    count = 0
-    for j, score in enumerate(prediction['scores']):
-        if score >= params['min_score']:
-            mask = torch.from_numpy(np.array(prediction['masks'][j])).type(torch.float32)
-            torchvision.utils.save_image(mask, f'{params["out_path"]}/CAR{str(params["count"]).zfill(5)}_{params["model_class"]}_{count}.png')
-            count += 1
-
-    params["count"] += 1
-    
+  
 def save_log(results, params):
     ### Metodo de salvar os resultados
     now = datetime.now().strftime("%m%d%Y-%H%M%S")

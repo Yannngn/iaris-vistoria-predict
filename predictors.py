@@ -137,10 +137,21 @@ class DetectMilha(Detector):
         self.results = []
         self.model, self.transform = self.get_model()
         pass
+
+class DetectParabrisa(Detector):
+    def __init__(self) -> None:
+        self.params = {"model_class": "parabrisa",
+                       "num_class": NUM_CLASSES,
+                       "device": DEVICE,
+                       "min_score": MIN_SCORE,
+                       "count": COUNT}
+        self.results = []
+        self.model, self.transform = self.get_model()
+        pass
     
 class DetectRetrovisor(Detector):
     def __init__(self) -> None:
-        self.params = {"model_class": "retrovisor_tras",
+        self.params = {"model_class": "retrovisor",
                        "num_class": NUM_CLASSES,
                        "device": DEVICE,
                        "min_score": MIN_SCORE,
