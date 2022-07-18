@@ -13,7 +13,7 @@ def predict(model, images: Union[str, List[str]], params: dict):
                                                     torchvision.transforms.Resize((320, 320))])
         
         tens = transform(Image.open(img).convert('RGB'))
-        tens = tens.unsqueeze(0)
+        tens = tens.to(device).unsqueeze(0)
 
         with torch.no_grad():
             prediction = model(tens)
@@ -24,7 +24,7 @@ def predict(model, images: Union[str, List[str]], params: dict):
 
             for j, score in enumerate(pred['scores']):
                 if score >= params['min_score']:
-                    mask = torch.from_numpy(np.array(pred['masks'][j])).type(torch.float32)
+                    mask = pred['masks'][j]
                     torchvision.utils.save_image(mask, f'{params["out_path"]}/CAR{str(params["count"]).zfill(5)}_{params["model_class"]}_{j}.png')
 
             params["count"] += 1
@@ -39,6 +39,7 @@ def predict(model, images: Union[str, List[str]], params: dict):
         torch.device('cpu')
 
     model.load_state_dict(torch.load(params['model_path'], map_location = device))
+    model.to(device)
     model.eval()
 
     results = []

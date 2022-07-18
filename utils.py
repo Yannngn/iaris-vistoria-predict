@@ -10,8 +10,8 @@ from torchvision.models.detection.mask_rcnn import MaskRCNNPredictor, MaskRCNN_R
 def log_detection(path, pred, results_list, params):
     result = {}
     result['image'] = path
-    result['scores'] = pred['scores'].detach().numpy().tolist()
-    result['boxes'] = pred['boxes'].detach().numpy().tolist()
+    result['scores'] = pred['scores'].detach().cpu().numpy().tolist()
+    result['boxes'] = pred['boxes'].detach().cpu().numpy().tolist()
    
     #result['masks'] = pred['masks'].detach().numpy().tolist()
     
