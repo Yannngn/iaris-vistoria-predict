@@ -15,8 +15,7 @@ def predict(model, transform, images: Union[str, List[str]], params: dict):
             
         _, predicted = torch.max(prediction.data, 1)
         
-        if model.log:
-            return log_classification(img, predicted.numpy(), params, results_list)
+        return log_classification(img, predicted.numpy(), params, results_list)
     
     assert isinstance(images, str) or isinstance(images, list), TypeError(f'Input should be str or list of str; it was {type(images)}')
     
@@ -25,7 +24,7 @@ def predict(model, transform, images: Union[str, List[str]], params: dict):
     else: 
         torch.device('cpu')
 
-    model.load_state_dict(torch.load(f'models/model_{params["model_class"]}.pickle', map_location = device))
+    model.load_state_dict(torch.load(params['model_path'], map_location = device))
     model.eval()
 
     results = []

@@ -35,6 +35,8 @@ class Detector(Predictor):
         return get_model_instance_detection(self.params['num_class']), None
     
     def call(self, images) -> None:
+        if not self.model:
+            self.model, self.transform = self.get_model()
         self.results = detect.predict(self.model, images, self.params)
         pass
 
@@ -44,9 +46,11 @@ class Detector(Predictor):
         
 class Classifier(Predictor):
     def get_model(self):
-        return get_model_instance_classification()
+        return get_model_instance_classification(self.params)
             
     def call(self, images) -> None:
+        if not self.model:
+            self.model, self.transform = self.get_model()
         self.results = classify.predict(self.model, self.transform, images, self.params)
         pass
     
@@ -57,30 +61,25 @@ class Classifier(Predictor):
 class ClassifyCor(Classifier):
     def __init__(self) -> None:
         self.params = {"model_class": "cor",
-                       "uniques": ['azul', 'bege', 'branco', 'cinza', 'laranja', 'marrom', 
-                                   'prata','preto', 'verde', 'vermelho', 'vinho'],
                        "device": "gpu"}
         self.results = []
-        self.model, self.transform = self.get_model()
+        self.model = None
         pass
 
 class ClassifyMarca(Classifier):
     def __init__(self) -> None:
         self.params = {"model_class": "marca",
-                       "uniques": ['chevrolet', 'fiat', 'hyundai', 'jeep', 'volkswagen'],
                        "device": "gpu"}
         self.results = []
-        self.model, self.transform = self.get_model()
+        self.model = None
         pass
 
 class ClassifyModelo(Classifier):
     def __init__(self) -> None:
         self.params = {"model_class": "modelo",
-                       "uniques": ['creta', 'compass', 'strada', 'toro', 'hb20',
-                                   'onix', 'gol', 'celta', 'palio', 'agile'],
                        "device": "gpu"}
         self.results = []
-        self.model, self.transform = self.get_model()
+        self.model = None
         pass
 
 '''     Não está funcionando
@@ -91,7 +90,7 @@ class ClassifyFarol(Classifier):
                        "uniques": [False, True], # confirmar
                        "device": "gpu"}
         self.results = []
-        self.model, self.transform = self.get_model()
+        self.model = None
         pass
 '''
 
@@ -103,7 +102,7 @@ class DetectEmblema(Detector):
                        "min_score": MIN_SCORE,
                        "count": COUNT}
         self.results = []
-        self.model, self.transform = self.get_model()
+        self.model = None
         pass
 
 class DetectFarol(Detector):
@@ -114,7 +113,7 @@ class DetectFarol(Detector):
                        "min_score": MIN_SCORE,
                        "count": COUNT}
         self.results = []
-        self.model, self.transform = self.get_model()
+        self.model = None
         pass
 
 class DetectRoda(Detector):
@@ -125,7 +124,7 @@ class DetectRoda(Detector):
                        "min_score": MIN_SCORE,
                        "count": COUNT}
         self.results = []
-        self.model, self.transform = self.get_model()
+        self.model = None
         pass
 
 class DetectMilha(Detector):
@@ -136,7 +135,7 @@ class DetectMilha(Detector):
                        "min_score": MIN_SCORE,
                        "count": COUNT}
         self.results = []
-        self.model, self.transform = self.get_model()
+        self.model = None
         pass
 
 class DetectParabrisa(Detector):
@@ -147,7 +146,7 @@ class DetectParabrisa(Detector):
                        "min_score": MIN_SCORE,
                        "count": COUNT}
         self.results = []
-        self.model, self.transform = self.get_model()
+        self.model = None
         pass
     
 class DetectRetrovisor(Detector):
@@ -158,7 +157,7 @@ class DetectRetrovisor(Detector):
                        "min_score": MIN_SCORE,
                        "count": COUNT}
         self.results = []
-        self.model, self.transform = self.get_model()
+        self.model = None
         pass
     
 class DetectLampadaTras(Detector):
@@ -169,5 +168,5 @@ class DetectLampadaTras(Detector):
                        "min_score": MIN_SCORE,
                        "count": COUNT}
         self.results = []
-        self.model, self.transform = self.get_model()
+        self.model = None
         pass

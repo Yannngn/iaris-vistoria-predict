@@ -42,15 +42,22 @@ def get_model_instance_detection(num_classes):
 
     return model
 
-def get_model_instance_classification():
+def get_model_instance_classification(params):
+    
+    model = torchvision.models.alexnet(weights=torchvision.models.AlexNet_Weights.DEFAULT)
+    
+    model.classifier[2] = torch.nn.Linear(4096, params['layer_2_size'])
+    model.classifier[4] = torch.nn.Linear(params['layer_2_size'], params['layer_4_size'])
+    model.classifier[6] = torch.nn.Linear(params['layer_4_size'], params['num_classes'])
+    
     transform_val = torchvision.transforms.Compose(
         [torchvision.transforms.ToTensor(),
          torchvision.transforms.Resize((512, 512)),
-         torchvision.transforms.Normalize(mean = [0.485, 0.456, 0.406], 
+         torchvision.transforms.Normalize(mean = [0.485, 0.456, 0.406],
                                           std = [0.229, 0.224, 0.225])
          ])        
-        
-    return torchvision.models.alexnet(pretrained=True), transform_val
+
+    return model, transform_val
   
 def save_log(results, params):
     ### Metodo de salvar os resultados
