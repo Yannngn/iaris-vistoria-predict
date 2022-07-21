@@ -16,7 +16,8 @@ DEVICE = 'gpu'
 COUNT = 0
 
 class Predictor(object):
-    def __init__(self) -> None:
+    def __init__(self, log) -> None:
+        self.log = log
         self.params = {}
         self.results = []
         self.model, self.transform = self.get_model()

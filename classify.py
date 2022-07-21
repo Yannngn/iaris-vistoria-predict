@@ -12,9 +12,11 @@ def predict(model, transform, images: Union[str, List[str]], params: dict):
 
         with torch.no_grad():
             prediction = model(tens)
-            _, predicted = torch.max(prediction.data, 1)
-
-        return log_classification(img, predicted.numpy(), params, results_list)
+            
+        _, predicted = torch.max(prediction.data, 1)
+        
+        if model.log:
+            return log_classification(img, predicted.numpy(), params, results_list)
     
     assert isinstance(images, str) or isinstance(images, list), TypeError(f'Input should be str or list of str; it was {type(images)}')
     

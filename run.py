@@ -5,6 +5,7 @@ from argparse import ArgumentParser
 from predictors import *
 
 def main(hparams):
+    log = False
     # match hparams.model_class:
     #     case 'farol':
     #         predict = DetectFarol()
@@ -18,13 +19,17 @@ def main(hparams):
     #         raise('valor inválido para --model_class')
  
     if hparams.model_class == 'farol':
-        predict = DetectFarol()
+        predict = DetectFarol(log)
     elif hparams.model_class == 'lampada_tras':
-        predict = DetectLampadaTras()
+        predict = DetectLampadaTras(log)
     elif hparams.model_class == 'parabrisa':
-            predict = DetectParabrisa()
+            predict = DetectParabrisa(log)
     elif hparams.model_class == 'roda':
-        predict = DetectRoda()
+        predict = ClassifyCor(log)
+    elif hparams.model_class == 'cor':
+            predict = DetectParabrisa(log)
+    elif hparams.model_class == 'modelo':
+        predict = ClassifyModelo(log)
     else:
         raise('valor inválido para --model_class') 
     
@@ -49,7 +54,7 @@ class Args:
         parser.add_argument('--in_path', '-i', type=str, help="path of images")
         parser.add_argument('--out_path', '-o', type=str, help="path of output for the masks")
         parser.add_argument('--model_path', '-m', type=str, help="path of the model weights")
-        parser.add_argument('--model_class', '-c', type=str, help="model name ['farol', 'roda', 'lampada_tras', 'parabrisa']")
+        parser.add_argument('--model_class', '-c', type=str, help="model name ['farol', 'roda', 'lampada_tras', 'parabrisa', 'cor', 'modelo']")
         
         return parser
  
