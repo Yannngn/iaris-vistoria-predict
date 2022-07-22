@@ -25,7 +25,8 @@ def predict(model, images: Union[str, List[str]], params: dict):
             for j, score in enumerate(pred['scores']):
                 if score >= params['min_score']:
                     mask = pred['masks'][j]
-                    torchvision.utils.save_image(mask, f'{params["out_path"]}/CAR{str(params["count"]).zfill(5)}_{params["model_class"]}_{j}.png')
+                    car = img.split('/')[-1].split('.')[0]
+                    torchvision.utils.save_image(mask, f'{params["out_path"]}/{car}_{params["model_class"]}_{j}.png')
 
             params["count"] += 1
 
