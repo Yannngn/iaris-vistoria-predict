@@ -159,10 +159,65 @@ class DetectRetrovisor(Detector):
         self.results = []
         self.model = None
         pass
-    
+
+class DetectLimpadorFrente(Detector):
+    def __init__(self) -> None:
+        self.params = {"model_class": "limpador_frente",
+                       "num_class": NUM_CLASSES,
+                       "device": DEVICE,
+                       "min_score": MIN_SCORE,
+                       "count": COUNT}
+        self.results = []
+        self.model = None
+        pass
+
+class DetectLimpadorTraseira(Detector):
+    def __init__(self) -> None:
+        self.params = {"model_class": "limpador_traseira",
+                       "num_class": NUM_CLASSES,
+                       "device": DEVICE,
+                       "min_score": MIN_SCORE,
+                       "count": COUNT}
+        self.results = []
+        self.model = None
+        pass
+
+class DetectRetrovisor(Detector):
+    def __init__(self) -> None:
+        self.params = {"model_class": "retrovisor",
+                       "num_class": NUM_CLASSES,
+                       "device": DEVICE,
+                       "min_score": MIN_SCORE,
+                       "count": COUNT}
+        self.results = []
+        self.model = None
+        pass
+
+class DetectRetrovisorFrente(Detector):
+    def __init__(self) -> None:
+        self.params = {"model_class": "retrovisor_frente",
+                       "num_class": NUM_CLASSES,
+                       "device": DEVICE,
+                       "min_score": MIN_SCORE,
+                       "count": COUNT}
+        self.results = []
+        self.model = None
+        pass
+
+class DetectRetrovisorTraseira(Detector):
+    def __init__(self) -> None:
+        self.params = {"model_class": "retrovisor_traseira",
+                       "num_class": NUM_CLASSES,
+                       "device": DEVICE,
+                       "min_score": MIN_SCORE,
+                       "count": COUNT}
+        self.results = []
+        self.model = None
+        pass
+
 class DetectLampadaTras(Detector):
     def __init__(self) -> None:
-        self.params = {"model_class": "lampada_tras",
+        self.params = {"model_class": "lampada_traseira",
                        "num_class": NUM_CLASSES,
                        "device": DEVICE,
                        "min_score": MIN_SCORE,

@@ -25,6 +25,14 @@ def main(hparams):
             predict = DetectParabrisa()
     elif hparams.model_class == 'roda':
         predict = DetectRoda()
+    elif hparams.model_class == 'limpador_frente':
+            predict = DetectLimpadorFrente()
+    elif hparams.model_class == 'limpador_traseira':
+            predict = DetectLimpadorTraseira()
+    elif hparams.model_class == 'retrovisor_frente':
+            predict = DetectRetrovisorFrente()
+    elif hparams.model_class == 'retrovisor_traseira':
+            predict = DetectRetrovisorTraseira()
     elif hparams.model_class == 'cor':
             predict = ClassifyCor()
     elif hparams.model_class == 'modelo':

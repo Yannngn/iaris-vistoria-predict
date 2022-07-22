@@ -10,7 +10,8 @@ from utils import log_detection
 def predict(model, images: Union[str, List[str]], params: dict): 
     def single_prediction(img, results_list):
         transform = torchvision.transforms.Compose([torchvision.transforms.ToTensor(), 
-                                                    torchvision.transforms.Resize((320, 320))])
+                                                    #torchvision.transforms.Resize((320, 320))
+                                                    ])
         
         tens = transform(Image.open(img).convert('RGB'))
         tens = tens.to(device).unsqueeze(0)
